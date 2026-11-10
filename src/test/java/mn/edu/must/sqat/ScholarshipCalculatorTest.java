@@ -107,4 +107,17 @@ class ScholarshipCalculatorTest {
 
     @Test
     void scholarshipLowGpaIsZero() { assertEquals(0, calc.scholarship(2.5, 20, false)); }
+
+    // ===== Хэсэг C: давталтын зааг (0 / 1 / 2+) =====
+    // 0 удаа: gpaEmptyThrows, gpaNullThrows (Хэсэг B-д бичсэн)
+
+    @Test
+    void gpaSingleGrade() {
+        assertEquals(4.0, calc.gpa(new double[]{95}), 1e-9);
+    }
+
+    @Test
+    void gpaManyGrades() {
+        assertEquals(2.5, calc.gpa(new double[]{95, 85, 75, 65}), 1e-9);
+    }
 }
