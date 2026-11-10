@@ -38,4 +38,73 @@ class ScholarshipCalculatorTest {
     void scholarshipHalf50() {
         assertEquals(50, calc.scholarship(3.1, 10, false));
     }
+
+    // ===== Хэсэг B: branch 100% =====
+
+    @Test
+    void letterGradeC() { assertEquals("C", calc.letterGrade(75)); }
+
+    @Test
+    void letterGradeD() { assertEquals("D", calc.letterGrade(65)); }
+
+    @Test
+    void letterGradeF() { assertEquals("F", calc.letterGrade(30)); }
+
+    @Test
+    void letterGradeNegativeThrows() {
+        assertThrows(IllegalArgumentException.class, () -> calc.letterGrade(-1));
+    }
+
+    @Test
+    void letterGradeOver100Throws() {
+        assertThrows(IllegalArgumentException.class, () -> calc.letterGrade(101));
+    }
+
+    @Test
+    void gpaAllGradeLetters() {
+        assertEquals(2.0, calc.gpa(new double[]{95, 85, 75, 65, 30}), 1e-9);
+    }
+
+    @Test
+    void gpaNullThrows() {
+        assertThrows(IllegalArgumentException.class, () -> calc.gpa(null));
+    }
+
+    @Test
+    void gpaEmptyThrows() {
+        assertThrows(IllegalArgumentException.class, () -> calc.gpa(new double[]{}));
+    }
+
+    @Test
+    void scholarshipNegativeGpaThrows() {
+        assertThrows(IllegalArgumentException.class, () -> calc.scholarship(-0.1, 10, false));
+    }
+
+    @Test
+    void scholarshipGpaAboveFourThrows() {
+        assertThrows(IllegalArgumentException.class, () -> calc.scholarship(4.1, 10, false));
+    }
+
+    @Test
+    void scholarshipNegativeCreditsThrows() {
+        assertThrows(IllegalArgumentException.class, () -> calc.scholarship(3.5, -1, false));
+    }
+
+    @Test
+    void scholarshipViolationGivesZero() { assertEquals(0, calc.scholarship(3.9, 16, true)); }
+
+    @Test
+    void scholarship70() { assertEquals(70, calc.scholarship(3.9, 14, false)); }
+
+    @Test
+    void scholarshipHighGpaLowCreditsFallsTo50() { assertEquals(50, calc.scholarship(3.9, 10, false)); }
+
+    @Test
+    void scholarshipMidGpaLowCreditsFallsTo50() { assertEquals(50, calc.scholarship(3.5, 11, false)); }
+
+    @Test
+    void scholarshipGpaBelow34Is50() { assertEquals(50, calc.scholarship(3.2, 20, false)); }
+
+    @Test
+    void scholarshipLowGpaIsZero() { assertEquals(0, calc.scholarship(2.5, 20, false)); }
 }
