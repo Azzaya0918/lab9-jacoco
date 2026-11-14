@@ -7,9 +7,23 @@ F.CSA313 — Программ хангамжийн чанарын баталга
 
 ## Орчин
 
-`java -version` болон `mvn -version` гаралт:
-- Java: OpenJDK 17.0.20.1 (Ubuntu / WSL2)
-- Maven: Apache Maven 3.9.12
+`java -version`:
+
+```
+openjdk version "17.0.20.1" 2026-08-18
+OpenJDK Runtime Environment (build 17.0.20.1+1-1-26.04-Ubuntu)
+OpenJDK 64-Bit Server VM (build 17.0.20.1+1-1-26.04-Ubuntu, mixed mode, sharing)
+```
+
+`mvn -version`:
+
+```
+[1mApache Maven 3.9.12[m
+Maven home: /usr/share/maven
+Java version: 17.0.20.1, vendor: Ubuntu, runtime: /usr/lib/jvm/java-17-openjdk-amd64
+Default locale: en, platform encoding: UTF-8
+OS name: "linux", version: "6.18.33.2-microsoft-standard-wsl2", arch: "amd64", family: "unix"
+```
 
 ## Хэсэг A: Happy path тестүүд ба эхний хэмжилт
 
@@ -53,6 +67,15 @@ Branch хамралтыг 100% хүргэхэд нийт **22** тест шаа�
 **Яагаад хэрэгтэй вэ:** Эдгээр тестүүд нь кодыг шугаман байдлаар гүйцэтгэхэд үр дүн хэвийн гарах эсэхээс гадна давталтын хил хязгаарын нөхцөлд (хоосон массив, ганц элемент эсвэл олон элемент өгөх үед) програмын логик алдаагүй ажиллаж буйг баталгаажуулдаг. Өөрөөр хэлбэл, кодын мөр болон салбарын хамралт 100% болсон ч давталтын заагийн тохиолдлуудыг тухайлан шалгах нь өгөгдлийн бүрэн бүтэн байдал, найдвартай ажиллагааг хангах чухал ач холбогдолтой юм.
 
 ## Хэсэг D: Хамралт 100% — гэхдээ алдаа амьд
+
+**Унасан тест** (`results/mvn-test-D-fail.txt`-ийн 36, 37, 53, 55-р мөр):
+
+```
+[[1;31mERROR[m] mn.edu.must.sqat.ScholarshipCalculatorTest.boundary60IsD -- Time elapsed: 0.007 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <D> but was: <F>
+[[1;31mERROR[m] [1;31m  ScholarshipCalculatorTest.boundary60IsD:133 expected: <D> but was: <F>[m
+[[1;31mERROR[m] [1;31mTests run: 34, Failures: 1, Errors: 0, Skipped: 0[m
+```
 
 `ScholarshipCalculator.java`-ийн `letterGrade()`-д `score > 60` гэж бичигдсэн, `score >= 60` байх ёстой.
 **Засвар:** `Fix letterGrade: > 60 -> >= 60, spec says 60 is D` commit.
